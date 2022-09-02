@@ -1,7 +1,6 @@
-//SignInScreen
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tv_shows/mainScreen/shows_screen.dart';
 
@@ -42,62 +41,108 @@ class _LoginWithGoogleScreenState extends State<LoginWithGoogleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.blue,
-              Colors.red,
-            ],
+    return OfflineBuilder(
+      connectivityBuilder: (
+        BuildContext context,
+        ConnectivityResult connectivity,
+        Widget child,
+      ) {
+        if (connectivity == ConnectivityResult.none) {
+          return OflineMsg();
+        } else {
+          return child;
+        }
+      },
+      builder: (BuildContext context) {
+        return Container(
+          width: double.infinity - 70,
+          height: double.infinity - 400,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.blue,
+                Colors.red,
+              ],
+            ),
           ),
-        ),
-        child: Card(
-          margin: EdgeInsets.only(top: 200, bottom: 200, left: 30, right: 30),
-          elevation: 20,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                " TV SHOWS APP by HanceForth ",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: MaterialButton(
-                  color: Colors.teal[100],
-                  elevation: 10,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 30.0,
-                        width: 30.0,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('images/Google.png'),
-                              fit: BoxFit.cover),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text("Sign In with Google")
-                    ],
-                  ),
-
-                  // we call the function signup function
-                  onPressed: () {
-                    signup(context);
-                  },
+          child: Card(
+            margin: EdgeInsets.only(top: 200, bottom: 200, left: 30, right: 30),
+            elevation: 20,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CircleAvatar(
+                  child: Image.asset('images/logo.jpg'),
                 ),
-              )
-            ],
+                Text(
+                  " TV SHOWS APP by HanceForth ",
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: MaterialButton(
+                    color: Colors.teal[100],
+                    elevation: 10,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 30.0,
+                          width: 30.0,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('images/Google.png'),
+                                fit: BoxFit.cover),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text("Sign In with Google")
+                      ],
+                    ),
+
+                    // we call the function signup function
+                    onPressed: () {
+                      signup(context);
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
+        );
+      },
+    );
+  }
+}
+
+class OflineMsg extends StatelessWidget {
+  const OflineMsg({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red[600],
+        title: Text("OFFLINE"),
+        automaticallyImplyLeading: false,
+      ),
+      body: Container(
+        padding: EdgeInsets.all(10.00),
+        margin: EdgeInsets.only(bottom: 10.00),
+        color: Colors.red,
+        child: Row(children: [
+          Container(
+            margin: EdgeInsets.only(right: 6.00),
+            child: Icon(Icons.info, color: Colors.white),
+          ), // icon for error message
+
+          Text('Please check your network connectivity',
+              style: TextStyle(color: Colors.white)),
+          //show error message text
+        ]),
       ),
     );
   }

@@ -34,7 +34,7 @@ class _LoadingSplashScreenState extends State<LoadingSplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                "images/splash.jpg",
+                "images/logo.jpg",
               ),
               const Text(
                 'TV SHOWS APP by   HanceForth',

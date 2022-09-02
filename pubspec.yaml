@@ -39,6 +39,7 @@ dependencies:
   google_sign_in: ^5.4.1
   cloud_firestore: ^3.4.6
   font_awesome_flutter: ^10.1.0
+  flutter_offline: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +67,7 @@ flutter:
   assets:
     - images/splash.jpg
     - images/Google.png
+    - images/logo.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
