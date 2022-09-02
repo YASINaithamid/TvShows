@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "900549644394",
+    "project_id": "tvshows-be4aa",
+    "storage_bucket": "tvshows-be4aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900549644394:android:7a50e58e08a863135d3a13",
+        "android_client_info": {
+          "package_name": "com.example.tv_shows"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900549644394-42tke31e1ns8tbf87a9r012hql84on0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdqrRGciC5jcTh-becVJ3ny730i7y_hHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900549644394-42tke31e1ns8tbf87a9r012hql84on0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
