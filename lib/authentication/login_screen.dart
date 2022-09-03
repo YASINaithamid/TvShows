@@ -48,7 +48,7 @@ class _LoginWithGoogleScreenState extends State<LoginWithGoogleScreen> {
         Widget child,
       ) {
         if (connectivity == ConnectivityResult.none) {
-          return OflineMsg();
+          return OfflineMsg();
         } else {
           return child;
         }
@@ -71,12 +71,14 @@ class _LoginWithGoogleScreenState extends State<LoginWithGoogleScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                CircleAvatar(
-                  child: Image.asset('images/logo.jpg'),
-                ),
+                Image.asset('images/logo.png'),
                 Text(
-                  " TV SHOWS APP by HanceForth ",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  " TV SHOWS APP  ",
+                  style: TextStyle(
+                      fontSize: 25,
+                      color: Color.fromARGB(255, 137, 160, 8),
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
@@ -118,8 +120,8 @@ class _LoginWithGoogleScreenState extends State<LoginWithGoogleScreen> {
   }
 }
 
-class OflineMsg extends StatelessWidget {
-  const OflineMsg({Key? key}) : super(key: key);
+class OfflineMsg extends StatelessWidget {
+  const OfflineMsg({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
