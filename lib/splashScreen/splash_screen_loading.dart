@@ -34,13 +34,23 @@ class _LoadingSplashScreenState extends State<LoadingSplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                "images/logo.jpg",
+                "images/logo.png",
+              ),
+              SizedBox(
+                height: 30.0,
               ),
               const Text(
-                'TV SHOWS APP by   HanceForth',
+                'TV SHOWS APP ',
                 style: TextStyle(
                     fontSize: 26,
                     color: Colors.white60,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                'by HanceForth',
+                style: TextStyle(
+                    fontSize: 15,
+                    color: Color.fromARGB(153, 139, 233, 7),
                     fontWeight: FontWeight.bold),
               ),
             ],
