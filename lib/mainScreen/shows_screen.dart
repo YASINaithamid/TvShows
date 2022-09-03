@@ -6,11 +6,16 @@ import 'package:tv_shows/components/show_tile.dart';
 import '../authentication/login_screen.dart';
 import '../components/custum_drawer.dart';
 import '../components/loading_widget.dart';
+import '../components/offline_widget.dart';
 import '../core/api_service.dart';
 import '../models/show.dart';
 
 class ShowsScreen extends StatefulWidget {
-  const ShowsScreen({Key? key}) : super(key: key);
+  final List<Show> shows;
+  ShowsScreen({
+    Key? key,
+    required this.shows,
+  }) : super(key: key);
 
   @override
   State<ShowsScreen> createState() => _ShowsScreenState();
@@ -21,18 +26,22 @@ class _ShowsScreenState extends State<ShowsScreen> {
   List<Show> _showsDisplay = <Show>[];
 
   bool _isLoading = true;
-
+  String query = 'got';
   @override
   void initState() {
     super.initState();
-    fetchShows().then((value) {
+    _shows = widget.shows;
+    _showsDisplay = _shows;
+    print(_showsDisplay.length);
+    _isLoading = false;
+    /*  fetchShows().then((value) {
       setState(() {
-        _isLoading = false;
+       
         _shows.addAll(value);
         _showsDisplay = _shows;
         print(_showsDisplay.length);
       });
-    });
+    }); */
   }
 
   @override
@@ -43,7 +52,9 @@ class _ShowsScreenState extends State<ShowsScreen> {
       Widget child,
     ) {
       if (connectivity == ConnectivityResult.none) {
-        return OfflineMsg();
+        return const OfflineMsg(
+            title: 'OFFLINE',
+            message: 'Please check your network connectivity');
       } else {
         return child;
       }
@@ -91,6 +102,7 @@ class _ShowsScreenState extends State<ShowsScreen> {
             }).toList();
           });
         },
+
         // controller: _textController,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
