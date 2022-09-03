@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:tv_shows/mainScreen/shows_screen.dart';
+import 'package:tv_shows/components/loading_widget.dart';
+
+import '../components/offline_widget.dart';
 
 class LoginWithGoogleScreen extends StatefulWidget {
   LoginWithGoogleScreen({Key? key}) : super(key: key);
@@ -33,7 +35,7 @@ class _LoginWithGoogleScreenState extends State<LoginWithGoogleScreen> {
 
       if (result != null) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => ShowsScreen()));
+            context, MaterialPageRoute(builder: (context) => LoadingView()));
       } // if result not null we go to Shows page,
 
     }
@@ -48,7 +50,9 @@ class _LoginWithGoogleScreenState extends State<LoginWithGoogleScreen> {
         Widget child,
       ) {
         if (connectivity == ConnectivityResult.none) {
-          return OfflineMsg();
+          return OfflineMsg(
+              title: 'OFFLINE',
+              message: 'Please check your network connectivity');
         } else {
           return child;
         }
@@ -116,36 +120,6 @@ class _LoginWithGoogleScreenState extends State<LoginWithGoogleScreen> {
           ),
         );
       },
-    );
-  }
-}
-
-class OfflineMsg extends StatelessWidget {
-  const OfflineMsg({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red[600],
-        title: Text("OFFLINE"),
-        automaticallyImplyLeading: false,
-      ),
-      body: Container(
-        padding: EdgeInsets.all(10.00),
-        margin: EdgeInsets.only(bottom: 10.00),
-        color: Colors.red,
-        child: Row(children: [
-          Container(
-            margin: EdgeInsets.only(right: 6.00),
-            child: Icon(Icons.info, color: Colors.white),
-          ), // icon for error message
-
-          Text('Please check your network connectivity',
-              style: TextStyle(color: Colors.white)),
-          //show error message text
-        ]),
-      ),
     );
   }
 }
