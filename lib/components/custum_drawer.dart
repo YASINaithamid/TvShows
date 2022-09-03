@@ -1,7 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tv_shows/authentication/login_screen.dart';
+import 'package:tv_shows/mainScreen/search_screen.dart';
 import 'package:tv_shows/mainScreen/shows_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CustumizedDrawer extends StatefulWidget {
   const CustumizedDrawer({Key? key}) : super(key: key);
@@ -13,20 +17,29 @@ class CustumizedDrawer extends StatefulWidget {
 class _CustumizedDrawerState extends State<CustumizedDrawer> {
   double _drawerIconSize = 24;
   double _drawerFontSize = 17;
-  String? username = '';
-  String? email = '';
+  String? username;
+  String? email;
+  String? photoUrl;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  GoogleSignIn googleSinIn = GoogleSignIn();
+  Future<LoginWithGoogleScreen> _signOut() async {
+    await googleSinIn.disconnect();
+    await _firebaseAuth.signOut();
+    return new LoginWithGoogleScreen();
+  }
 
-  /* void retrieve() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    username = prefs.getString("username");
-    email = prefs.getString("email");
+  void retrieve() async {
+    username = await _firebaseAuth.currentUser!.displayName;
+    email = await _firebaseAuth.currentUser!.email;
+    photoUrl = await _firebaseAuth.currentUser!.photoURL;
+    print(photoUrl);
     setState(() {});
-  } */
+  }
 
   @override
   void initState() {
     super.initState();
-    //retrieve();
+    retrieve();
 
     ///whatever you want to run on page build
   }
@@ -66,10 +79,10 @@ class _CustumizedDrawerState extends State<CustumizedDrawer> {
                 alignment: Alignment.bottomLeft,
                 child:
                     Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  Icon(
-                    Icons.person,
-                    size: 80,
-                    color: Colors.grey.shade300,
+                  CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: NetworkImage(photoUrl!),
+                    backgroundColor: Colors.transparent,
                   ),
                   Text(
                     'Mr. $username',
@@ -106,7 +119,7 @@ class _CustumizedDrawerState extends State<CustumizedDrawer> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ShowsScreen()),
+                  MaterialPageRoute(builder: (context) => SearchScreen()),
                 );
               },
             ),
@@ -149,7 +162,14 @@ class _CustumizedDrawerState extends State<CustumizedDrawer> {
                     fontSize: _drawerFontSize,
                     color: Theme.of(context).colorScheme.secondary),
               ),
-              onTap: () {},
+              onTap: () {
+                _signOut();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LoginWithGoogleScreen()),
+                );
+              },
             ),
             Divider(
               color: Theme.of(context).primaryColor,
