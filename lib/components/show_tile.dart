@@ -8,16 +8,6 @@ class ShowTile extends StatelessWidget {
 
   ShowTile({required this.show});
 
-  /*  String userTitle() {
-    String title = "";
-    if (show.gender == "Male") {
-      title = "Mr.";
-    } else if (show.gender == "Female") {
-      title = "Ms.";
-    }
-    return title;
-  } */
-
   @override
   Widget build(BuildContext context) {
     return Padding(
