@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:tv_shows/models/show.dart';
 
@@ -26,18 +28,11 @@ class ShowTile extends StatelessWidget {
             leading: Hero(
               tag: show.id,
               child: CircleAvatar(
-                backgroundImage: NetworkImage(show.image['medium']),
+                backgroundImage: NetworkImage(show.image),
               ),
             ),
             title: Text(' ${show.name} ${show.genres}'),
             subtitle: Text(show.summary),
-            onTap: () {
-              /*  Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => UserDetailsPage(user: user)));
-            */
-            },
           ),
           Divider(
             thickness: 2.0,
